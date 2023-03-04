@@ -1,26 +1,88 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-export class Home extends Component {
-  static displayName = Home.name;
+import { Link } from "react-router-dom";
 
-  render () {
+
+import Backdrop from '@mui/material/Backdrop';
+
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { useNavigate } from "react-router-dom";
+
+
+import Typography from '@mui/material/Typography';
+
+import CircularProgress from '@mui/material/CircularProgress';
+
+const Home = (props) => {
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
+    async function createLobby() {
+        setLoading(true)
+        try {
+
+            const response = await fetch("https://localhost:7178/api/lobbies/createlobby", {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+
+                }),
+
+            });
+            const lobby = await response.json();
+
+
+            navigate("/lobby/" + lobby.urlString);
+        }
+        catch (ex) {
+            alert("Failed to create lobbby. Wait a few seconds and try again or refresh the page.")
+        }
+
+    }
+    if (loading) {
+        return (
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={true}
+
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>)
+    }
     return (
-      <div>
-        <h1>Hello, world!</h1>
-        <p>Welcome to your new single-page application, built with:</p>
-        <ul>
-          <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-          <li><a href='https://facebook.github.io/react/'>React</a> for client-side code</li>
-          <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-        </ul>
-        <p>To help you get started, we have also set up:</p>
-        <ul>
-          <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-          <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-          <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
-        </ul>
-        <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
-      </div>
-    );
-  }
-}
+        <Stack direction="column" spacing={4} justifyContent="center"
+            alignItems="center">
+            <Stack>
+                <Typography gutterBottom align="center" variant="h3" >
+                    GPT Trivia
+                </Typography>
+                <Typography gutterBottom align="center" variant="h4" >
+                    AI Generated trivia questions
+                </Typography>
+            </Stack>
+            <Button sx={{ width: '400px' }} style={{ fontSize: 18 }} variant="contained" onClick={() => createLobby()}>Start Lobby</Button>
+            
+            <Stack>
+                <Typography align="center" variant="body1" >
+                    Made by <Link to="https://www.linkedin.com/in/ericlieu12"> Eric Lieu </Link>
+                </Typography>
+                <Typography gutterBottom align="center" variant="body1" >
+                    <Link to="https://account.venmo.com/u/eric-Lieu-4"> Venmo </Link>
+                </Typography>
+            </Stack>
+            <Stack>
+                <Typography align="center" variant="body2" >
+                    Any suggestions or bugs, email me at ericlieu118@gmail.com. Version 1.0, created with React, .NET Core, and SignalR.
+                </Typography>
+                <Typography align="center" variant="body2" >
+                    Check out how I built this and my future planned updates here:
+                    <a href="https://docs.google.com/document/d/1m7E9Fm37ayJGF88pLDqmkJlLfShcEpcvd-4BHPFumQ0/edit?usp=sharing">Google Doc </a>
+                </Typography>
+            </Stack>
+
+        </Stack>
+    )
+};
+
+export default Home;

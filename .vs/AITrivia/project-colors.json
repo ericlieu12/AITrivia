@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "c36371dc-3833-4a0c-905d-4267d1fac187": {
+      "ProjectGuid": "c36371dc-3833-4a0c-905d-4267d1fac187",
+      "DisplayName": "AITrivia",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

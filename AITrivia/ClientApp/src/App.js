@@ -1,22 +1,41 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
 
-import './custom.css'
+import { Routes, Route } from 'react-router-dom';
 
+import Box from '@mui/material/Box';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import Lobby from './components/LobbyComponent/Lobby';
+import Home from './components/Home';
+import Container from '@mui/material/Container';
 export default class App extends Component {
   static displayName = App.name;
 
   render () {
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
+   
+        <Box sx={{ minHeight: '100vh', overflow: 'auto' }} >
+
+
+
+
+
+            <Container>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/lobby">
+                        <Route path=":lobbyUrl" element={<Lobby />} />
+                        <Route path="*" element={<Home />} />
+                    </Route>
+                 
+
+                </Routes>
+
+            </Container>
+        </Box>
+  
+     
     );
   }
 }
