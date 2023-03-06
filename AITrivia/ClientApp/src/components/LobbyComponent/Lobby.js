@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import { useNavigate } from "react-router-dom";
 
 import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
 
 const Lobby = (props) => {
     const [connection, setConnection] = useState(null);
@@ -70,7 +71,14 @@ const Lobby = (props) => {
                         setUsers(message)
                         /* console.log(message)*/
                     });
-                    
+
+                    connection.on('ReadyLobby', message => {
+
+                        
+                        setLobbyState(1);
+
+                    });
+
                     connection.on('UserCreated', message => {
                         //this message gets triggered when the temp user is created in a lobby
                         //this updates "YOU"
@@ -93,6 +101,24 @@ const Lobby = (props) => {
 
     }, [connection]);
 
+    const startLobby = async () => {
+
+        if (connection._connectionStarted) {
+            const startMessage = {
+                UrlString: params.lobbyUrl,
+                UserId: user.id,
+            };
+            try {
+                await connection.send('StartLobby', startMessage);
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+        else {
+            alert('No connection to server yet.');
+        }
+    }
 
     const errorReroute = () => {
 
@@ -124,7 +150,9 @@ const Lobby = (props) => {
     }
 
    
-
+    if (lobbyState == 1) {
+        return (<div> STARTED </div>)
+    }
 
     if (users.length == 0)
         return (
@@ -145,9 +173,10 @@ const Lobby = (props) => {
                     {user.name}
 
                 </Grid>
-
+                 
 
             ))}
+            <Button sx={{ width: '400px' }} style={{ fontSize: 18 }} variant="contained" onClick={() => startLobby()}>Start Lobby</Button>
 
         </Grid>)
 

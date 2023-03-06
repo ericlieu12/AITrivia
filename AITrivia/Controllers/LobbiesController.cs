@@ -76,8 +76,32 @@ namespace chooseSomethingToDo.Controllers
                 lobby.triviaQuestions = new List<TriviaQuestion>();
                 lobby.isDone = false;
                 lobby.isStarted = false;
-                _context.Lobbys.Add(lobby);
 
+                //generate questions
+                for (int j =0; j < 10; j++)
+                {
+                    var question = new TriviaQuestion();
+                    question.answers = new List<TriviaAnswer>();
+                    question.questionString = "Question " + j.ToString();
+                    for (int k = 0; k < 4; k++)
+                    {
+                        var answer = new TriviaAnswer();
+                        answer.answerString = "Answer " + k.ToString();
+                        if (k == 1)
+                        {
+                            answer.isCorrect = true;
+                        }
+                        else
+                        {
+                            answer.isCorrect = false;
+                        }
+                        question.answers.Add(answer);
+                    }
+                    lobby.triviaQuestions.Add(question);
+                }
+               
+
+                _context.Lobbys.Add(lobby);
 
                 await _context.SaveChangesAsync();
 
@@ -89,6 +113,7 @@ namespace chooseSomethingToDo.Controllers
             }
 
         }
+
 
 
 

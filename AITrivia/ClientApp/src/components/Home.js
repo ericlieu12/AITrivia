@@ -67,18 +67,13 @@ const Home = (props) => {
                 <Typography align="center" variant="body1" >
                     Made by <Link to="https://www.linkedin.com/in/ericlieu12"> Eric Lieu </Link>
                 </Typography>
-                <Typography gutterBottom align="center" variant="body1" >
-                    <Link to="https://account.venmo.com/u/eric-Lieu-4"> Venmo </Link>
-                </Typography>
+               
             </Stack>
             <Stack>
                 <Typography align="center" variant="body2" >
                     Any suggestions or bugs, email me at ericlieu118@gmail.com. Version 1.0, created with React, .NET Core, and SignalR.
                 </Typography>
-                <Typography align="center" variant="body2" >
-                    Check out how I built this and my future planned updates here:
-                    <a href="https://docs.google.com/document/d/1m7E9Fm37ayJGF88pLDqmkJlLfShcEpcvd-4BHPFumQ0/edit?usp=sharing">Google Doc </a>
-                </Typography>
+                
             </Stack>
 
         </Stack>
