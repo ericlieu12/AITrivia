@@ -10,6 +10,8 @@ namespace AITrivia.DBModels
         public string ConnectionID { get; set; }
         public bool IsLeader { get; set; }
         public int LobbyId { get; set; }
+        public bool isCorrect { get; set; }
+        public int score { get; set; }
 
     }
 }

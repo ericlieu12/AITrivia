@@ -13,6 +13,10 @@ namespace AITrivia.DBModels
 
         public int questionNumber { get; set; }
 
+        public int answersComplete { get; set; }
+
+        [Timestamp]
+        public byte[] Version { get; set; }
         public virtual List<TriviaQuestion> triviaQuestions { get; set; }
         public virtual List<User> users { get; set; }
 

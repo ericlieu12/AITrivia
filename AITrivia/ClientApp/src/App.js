@@ -15,7 +15,7 @@ export default class App extends Component {
   render () {
     return (
    
-        <Box sx={{ minHeight: '100vh', overflow: 'auto' }} >
+        <Box sx={{ minHeight: '100vh', overflow: 'auto'  }} >
 
 
 

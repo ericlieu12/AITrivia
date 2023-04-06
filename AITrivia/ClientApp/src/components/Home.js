@@ -18,11 +18,13 @@ const Home = (props) => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     async function createLobby() {
+        let topic = prompt("What topic do you want to quiz on?", "Popsicles");
         setLoading(true)
         try {
 
-            const response = await fetch("https://localhost:7178/api/lobbies/createlobby", {
+            const response = await fetch("https://localhost:7178/api/lobbies/createlobby/", {
                 method: 'POST',
+                body: JSON.stringify(topic),
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
